@@ -1,0 +1,208 @@
+:root {
+  --sand: #e8dcc8;
+  --ink: #1a120c;
+  --gold: #f0c41a;
+  --gold-deep: #c9920e;
+  --ember: #9c2b1a;
+  --glass: rgba(255, 248, 235, 0.18);
+  --glass-edge: rgba(255, 255, 255, 0.35);
+  --glass-shadow: rgba(20, 10, 4, 0.45);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Noto Sans Arabic", "Segoe UI", Tahoma, sans-serif;
+  color: var(--sand);
+  background: #1a120c;
+  overflow: hidden;
+  -webkit-font-smoothing: antialiased;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.bg {
+  position: fixed;
+  inset: 0;
+  background:
+    url("assets/kirkuk-bg.jpg") center / cover no-repeat;
+  transform: scale(1.06);
+  animation: bg-drift 18s var(--ease) infinite alternate;
+  will-change: transform;
+}
+
+.bg-glow {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 55% at 50% 42%, rgba(26, 18, 12, 0.15), rgba(26, 18, 12, 0.55) 70%),
+    linear-gradient(180deg, rgba(26, 18, 12, 0.25) 0%, transparent 35%, rgba(26, 18, 12, 0.5) 100%);
+  pointer-events: none;
+}
+
+#fireflies {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.stage {
+  position: relative;
+  z-index: 2;
+  min-height: 100dvh;
+  display: grid;
+  place-items: center;
+  padding: max(1.25rem, env(safe-area-inset-top)) 1.25rem max(1.5rem, env(safe-area-inset-bottom));
+}
+
+.glass {
+  width: min(100%, 26rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.35rem;
+  padding: 2.25rem 1.75rem 1.85rem;
+  border-radius: 1.75rem;
+  background: var(--glass);
+  border: 1px solid var(--glass-edge);
+  box-shadow:
+    0 24px 48px var(--glass-shadow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  backdrop-filter: blur(22px) saturate(1.25);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  animation: rise-in 0.9s var(--ease) both;
+}
+
+.logo {
+  width: min(88%, 19rem);
+  height: auto;
+  filter: drop-shadow(0 10px 18px rgba(0, 0, 0, 0.35));
+  animation: float 4.8s ease-in-out infinite;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.tagline {
+  font-size: clamp(0.95rem, 2.8vw, 1.05rem);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  text-align: center;
+  color: rgba(255, 246, 230, 0.92);
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+  animation: rise-in 0.9s var(--ease) 0.12s both;
+}
+
+.cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+  min-width: 12.5rem;
+  padding: 0.95rem 1.6rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 220, 120, 0.45);
+  background: linear-gradient(145deg, var(--gold) 0%, var(--gold-deep) 55%, #a86a0a 100%);
+  color: var(--ink);
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-decoration: none;
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.35),
+    0 0 0 0 rgba(240, 196, 26, 0.45);
+  transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease), filter 0.35s var(--ease);
+  animation: rise-in 0.9s var(--ease) 0.22s both, pulse 3.2s ease-in-out 1.2s infinite;
+}
+
+.cta:hover {
+  transform: translateY(-3px) scale(1.03);
+  filter: brightness(1.06);
+  box-shadow:
+    0 16px 32px rgba(0, 0, 0, 0.4),
+    0 0 28px rgba(240, 196, 26, 0.35);
+}
+
+.cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.cta-icon {
+  width: 1.35rem;
+  height: 1.35rem;
+  flex-shrink: 0;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.35),
+      0 0 0 0 rgba(240, 196, 26, 0.4);
+  }
+  50% {
+    box-shadow:
+      0 12px 28px rgba(0, 0, 0, 0.35),
+      0 0 0 12px rgba(240, 196, 26, 0);
+  }
+}
+
+@keyframes bg-drift {
+  from {
+    transform: scale(1.06) translate(0, 0);
+  }
+  to {
+    transform: scale(1.1) translate(-1.2%, 1%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bg,
+  .glass,
+  .logo,
+  .tagline,
+  .cta {
+    animation: none !important;
+  }
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .glass {
+    background: rgba(42, 28, 18, 0.78);
+  }
+}
